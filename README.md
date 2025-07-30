@@ -2,6 +2,8 @@
 
 > **Product Requirement Prompts (PRPs) = PRDs + curated codebase intelligence + agent runbooks**
 
+Based on https://github.com/Wirasm/PRPs-agentic-eng
+
 A collection of battle-tested PRP templates for different use cases. Each template provides the context engineering framework to help AI coding assistants deliver production-ready code on the first pass.
 
 ## 🚀 Templates Overview
