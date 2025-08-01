@@ -1,59 +1,65 @@
-### 🔄 Project Awareness & Context
-- **Always read `PLANNING.md`** at the start of a new conversation to understand the project's architecture, goals, style, and constraints.
-- **Check `TASK.md`** before starting a new task. If the task isn’t listed, add it with a brief description and today's date.
-- **Use consistent naming conventions, file structure, and architecture patterns** as described in `PLANNING.md`.
-- **Use venv_linux** (the virtual environment) whenever executing Python commands, including for unit tests.
+# CLAUDE.md
 
-### 🧱 Code Structure & Modularity
-- **Never create a file longer than 500 lines of code.** If a file approaches this limit, refactor by splitting it into modules or helper files.
-- **Organize code into clearly separated modules**, grouped by feature or responsibility.
-  For agents this looks like:
-    - `agent.py` - Main agent definition and execution logic 
-    - `tools.py` - Tool functions used by the agent 
-    - `prompts.py` - System prompts
-- **Use clear, consistent imports** (prefer relative imports within packages).
-- **Use clear, consistent imports** (prefer relative imports within packages).
-- **Use python_dotenv and load_env()** for environment variables.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-### 🧪 Testing & Reliability
-- **Always create Pytest unit tests for new features** (functions, classes, routes, etc).
-- **After updating any logic**, check whether existing unit tests need to be updated. If so, do it.
-- **Tests should live in a `/tests` folder** mirroring the main app structure.
-  - Include at least:
-    - 1 test for expected use
-    - 1 edge case
-    - 1 failure case
+## Repository Overview
 
-### ✅ Task Completion
-- **Mark completed tasks in `TASK.md`** immediately after finishing them.
-- Add new sub-tasks or TODOs discovered during development to `TASK.md` under a “Discovered During Work” section.
+This is the Context Engineering Hub - a collection of battle-tested PRP (Product Requirement Prompt) templates for different use cases. PRPs combine PRDs with curated codebase intelligence and agent runbooks to help AI coding assistants deliver production-ready code.
 
-### 📎 Style & Conventions
-- **Use Python** as the primary language.
-- **Follow PEP8**, use type hints, and format with `black`.
-- **Use `pydantic` for data validation**.
-- Use `FastAPI` for APIs and `SQLAlchemy` or `SQLModel` for ORM if applicable.
-- Write **docstrings for every function** using the Google style:
-  ```python
-  def example():
-      """
-      Brief summary.
+## Architecture
 
-      Args:
-          param1 (type): Description.
+### Template Structure
 
-      Returns:
-          type: Description.
-      """
-  ```
+All templates follow a consistent structure:
 
-### 📚 Documentation & Explainability
-- **Update `README.md`** when new features are added, dependencies change, or setup steps are modified.
-- **Comment non-obvious code** and ensure everything is understandable to a mid-level developer.
-- When writing complex logic, **add an inline `# Reason:` comment** explaining the why, not just the what.
+```
+template-name/
+├── .claude/
+│   ├── commands/              # Custom Claude Code commands
+│   └── settings.local.json    # Permissions and settings
+├── PRPs/
+│   ├── templates/             # Base PRP templates
+│   ├── examples/              # Code examples (critical for AI!)
+│   ├── INITIAL.md            # Feature request template
+│   └── ai_docs/              # Documentation context (when needed)
+├── CLAUDE.md                 # Project-specific AI rules
+└── README.md                 # Template-specific documentation
+```
 
-### 🧠 AI Behavior Rules
-- **Never assume missing context. Ask questions if uncertain.**
-- **Never hallucinate libraries or functions** – only use known, verified Python packages.
-- **Always confirm file paths and module names** exist before referencing them in code or tests.
-- **Never delete or overwrite existing code** unless explicitly instructed to or if part of a task from `TASK.md`.
+### Available Templates
+
+1. **prp-base-python** - Universal PRP template for any existing project
+2. **mcp-server** - Complete MCP server with TypeScript, auth, and database tools
+3. **pydantic-ai** - Multi-agent Python project with structured outputs
+4. **template-generator** - Meta-template for generating custom PRP templates
+
+## Development Commands
+
+### Template Management
+
+```bash
+# Copy templates to new projects
+python prp-templates/mcp-server/copy_template.py <target-directory>
+python prp-templates/pydantic-ai/copy_template.py <target-directory>
+
+# Use template generator
+cd prp-templates/template-generator/
+/generate-prp "Create a PRP template for [framework/domain]"
+```
+
+## Key Implementation Details
+
+### Context Engineering Principles
+
+- **Examples are critical** - Accurate and relevant examples = better AI implementations
+- **Validation gates** - PRPs include test commands that must pass
+- **Comprehensive context** - Include documentation, patterns, and constraints
+- **Progressive refinement** - AI iterates until all validations succeed
+
+## Important Notes
+
+- **Never commit secrets** - Use environment variables and .env files
+- **Follow KISS principle** - Simple solutions over complex ones
+- **Trust the prompt** - PRPs contain comprehensive context for AI
+- **Examples drive quality** - Include representative code patterns
+- **Validate continuously** - Use test commands throughout development
