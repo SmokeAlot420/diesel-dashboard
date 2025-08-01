@@ -10,12 +10,7 @@ Claude Code hooks provide deterministic control over your AI coding workflow. Un
 
 ### Installation
 
-1. **Copy hook to your project**:
-   ```bash
-   cp -r claude-hooks/log-claude-code-actions ~/.claude/hooks/
-   ```
-
-2. **Add to your settings**:
+1. **Add to your settings**:
    ```bash
    # Edit ~/.claude/settings.json or .claude/settings.local.json
    ```
@@ -25,22 +20,7 @@ Claude Code hooks provide deterministic control over your AI coding workflow. Un
 ## 📋 Available Hooks
 
 ### log-claude-code-actions
-
-**Purpose**: Logs all Bash commands executed by Claude Code for audit and review purposes.
-
-**Trigger**: `PreToolUse` on Bash tool  
-**Output**: `~/.claude/bash-command-log.txt`
-
-This hook captures:
-- The exact command being executed
-- Command description (if provided)
-- Timestamp of execution (via file append time)
-
-Perfect for:
-- Security auditing
-- Understanding Claude's actions
-- Debugging command sequences
-- Compliance requirements
+Logs all Bash commands executed by Claude Code to `~/.claude/bash-command-log.txt` for audit and review.
 
 ## 🛠️ How Hooks Work
 
