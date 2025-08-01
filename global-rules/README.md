@@ -17,12 +17,6 @@ Global Rules are:
 
 Establishes Archon as the primary knowledge and task management system. Ensures AI assistants always check Archon for tasks before writing code, use its RAG capabilities for research, and maintain proper task lifecycle management.
 
-Key behaviors:
-- Task-first development workflow
-- Integrated knowledge base queries
-- Project and feature organization
-- Research-driven implementation
-
 [View Archon Global Rules →](./archon/README.md)
 
 ## 🚀 How to Use Global Rules
@@ -69,9 +63,11 @@ When creating new global rules:
 To add new global rules:
 1. Create a new directory under `global-rules/`
 2. Include a comprehensive README.md
-3. Add the CLAUDE.md with the actual rules
+3. Add the RULES.md with the actual rules (or AI-specific files like CLAUDE.md, .cursorrules, .windsurfrules)
 4. Update this main README with a description
 5. Submit a PR with usage examples
+
+**Note**: Some global rules may need different files for different AI coding assistants. For example, Archon includes CLAUDE.md, .cursorrules, and .windsurfrules because the rules vary slightly between AI assistants. Include the appropriate files for your target platforms.
 
 ## 📚 Best Practices
 
