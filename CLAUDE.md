@@ -23,6 +23,7 @@ template-name/
 │   ├── INITIAL.md            # Feature request template
 │   └── ai_docs/              # Documentation context (when needed)
 ├── CLAUDE.md                 # Project-specific AI rules
+├── src/[use_cases]           # Source code starter if applicable to use case
 └── README.md                 # Template-specific documentation
 ```
 
