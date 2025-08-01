@@ -19,13 +19,6 @@ Global Rules are:
 
 Establishes Archon as the primary knowledge and task management system. Ensures AI assistants always check Archon for tasks before writing code, use its RAG capabilities for research, and maintain proper task lifecycle management.
 
-Key behaviors:
-
-- Task-first development workflow
-- Integrated knowledge base queries
-- Project and feature organization
-- Research-driven implementation
-
 [View Archon Global Rules →](./archon/README.md)
 
 ### 🎨 Framework-Specific CLAUDE Rules
