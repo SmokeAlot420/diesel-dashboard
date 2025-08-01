@@ -16,7 +16,18 @@ cp -r context-engineering-hub/prp-templates/prp-base-python/.claude/ your-projec
 
 # 2. Start building features immediately
 cd your-project
+
+# 3. Start building with the PRP workflow
+# Fill out PRPs/INITIAL.md with the agent you want to create
+
+# 4. Generate the PRP based on your detailed requirements
+/generate-pydantic-ai-prp PRPs/INITIAL.md
+# or simply pass the string
 /generate-prp "Build a user authentication system with JWT tokens"
+
+# IMPORTANT
+# validate that the PRP content is aligned with your goals after generating!
+
 # The PRP can also be created manually without the generate command, its important to understand the command is just a starting point, not a perfect solution.
 
 # 3. Manually Read the PRP and make sure it is complete and accurate before proceeding.
