@@ -6,6 +6,8 @@ A comprehensive collection of context engineering frameworks and templates desig
 
 Browse our [PRP Templates](./prp-templates/) to find the right framework for your project.
 
+You'll find a README in this folder walking you through leveraging the PRP framework with your chosen PRP template as well.
+
 ## 📁 Repository Structure
 
 This repository contains several specialized directories:
@@ -14,6 +16,15 @@ This repository contains several specialized directories:
 - **[Slash Commands](./slash-commands/)** - Ready-to-use Claude Code commands for development workflows
 - **[Global Rules](./global-rules/)** - Reusable AI coding rules and configurations (Archon, .cursorrules, etc.)
 - **[Claude Hooks](./claude-hooks/)** - Event hooks and logging for Claude Code actions
+- **[Subagents](./subagents/)** - Specialized AI team members for task-specific expertise
+
+## 🤝 Contributing
+
+This is a **Dynamous community project** building the definitive collection of AI coding resources. We're working toward a world where AI assistants deliver production-ready code consistently, not just sometimes.
+
+Your battle-tested templates, commands, and automations help the entire community ship better code faster.
+
+See our [Contributing Guide](./CONTRIBUTING.md) to get started.
 
 ## 📚 What is Context Engineering?
 
