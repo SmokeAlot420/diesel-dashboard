@@ -21,24 +21,17 @@ Establishes Archon as the primary knowledge and task management system. Ensures 
 
 [View Archon Global Rules →](./archon/README.md)
 
-### 🎨 Framework-Specific CLAUDE Rules
+### 🎨 Framework-Specific Rules
 
 **⚠️ These are opinionated rulesets. Please read through them carefully before use to ensure they align with your project's standards and preferences.**
 
-These framework-specific CLAUDE.md files contain comprehensive guidelines for AI coding assistants working with specific technologies:
+These framework-specific rule files contain comprehensive guidelines for AI coding assistants working with specific technologies:
 
-- **[CLAUDE-REACT.md](.claude-md-files//CLAUDE-REACT.md)** - React development patterns, hooks, state management, and component architecture
-- **[CLAUDE-NEXTJS.md](.claude-md-files//CLAUDE-NEXTJS.md)** - Next.js app router, server components, routing, and deployment patterns
-- **[CLAUDE-NODE.md](.claude-md-files//CLAUDE-NODE.md)** - Node.js backend development, Express patterns, middleware, and API design
-- **[CLAUDE-ASTRO.md](.claude-md-files//CLAUDE-ASTRO.md)** - Astro static site generation, content collections, and deployment
-- **[CLAUDE-PYTHON.md](./claude-md-files/CLAUDE-PYTHON.md)** - Python development standards, testing, packaging, and best practices
-
-**Important Notes:**
-
-- These rules are **highly opinionated** and reflect specific development approaches
-- Review the entire file before integrating to ensure compatibility with your workflow
-- Some rules may conflict with your existing project standards
-- Consider selectively copying sections rather than using the entire file
+- **[astro-rules.md](./astro/astro-rules.md)** - Astro static site generation, content collections, and deployment
+- **[nextjs-rules.md](./nextjs/nextjs-rules.md)** - Next.js app router, server components, routing, and deployment patterns
+- **[node-rules.md](./node/node-rules.md)** - Node.js backend development, Express patterns, middleware, and API design
+- **[python-rules.md](./python/python-rules.md)** - Python development standards, testing, packaging, and best practices
+- **[react-rules.md](./react/react-rules.md)** - React development patterns, hooks, state management, and component architecture
 
 ## 🚀 How to Use Global Rules
 
@@ -48,12 +41,32 @@ Select global rules that match your project's tools and workflow. Multiple rule 
 
 ### 2. Add to Your Project
 
-Global rules can be integrated via:
+Copy the relevant rule file to your project root and rename it based on your AI coding tool:
 
-- **CLAUDE.md** at the root of your project for Claude Code
-- **.cursorrules** at the root of your project for Cursor
-- **.windsurfrules** at the root of your project for Windsurf
+- **CLAUDE.md** for Claude Code
+- **.cursorrules** for Cursor
+- **.windsurfrules** for Windsurf
 - Similar setup for other AI coding assistants
+
+**Example Usage:**
+
+```bash
+# For Claude Code
+cp global-rules/react/react-rules.md /your-project/CLAUDE.md
+
+# For Cursor
+cp global-rules/react/react-rules.md /your-project/.cursorrules
+
+# For Windsurf
+cp global-rules/react/react-rules.md /your-project/.windsurfrules
+```
+
+**Important Notes:**
+
+- These rules are **highly opinionated** and reflect specific development approaches
+- Review the entire file before integrating to ensure compatibility with your workflow
+- Some rules may conflict with your existing project standards
+- Consider selectively copying sections rather than using the entire file
 
 ## ⚡ Quick Integration
 
