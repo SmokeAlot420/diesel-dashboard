@@ -10,7 +10,7 @@ PRPs enable working TypeScript/React code on the first attempt through:
 - **Progressive Validation**: 4-level gates catch errors early
 - **Pattern Consistency**: Follow existing TypeScript/React codebase approaches
 - **Type Safety**: Leverage TypeScript's compile-time error detection
-- Read PRPs/README.md to understand PRP concepts
+- Read PRPs/prp-readme.md to understand PRP concepts
 
 **Your Goal**: Transform the PRP into working TypeScript code that passes all validation gates and maintains type safety.
 

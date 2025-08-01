@@ -8,7 +8,7 @@ Create a comprehensive TypeScript PRP that enables **one-pass implementation suc
 
 **Critical Understanding**: The executing AI agent only receives:
 
-- Start by reading and understanding the prp concepts PRPs/README.md
+- Start by reading and understanding the prp concepts PRPs/prp-readme.md
 - The PRP content you create
 - Its training data knowledge
 - Access to codebase files (but needs guidance on which ones)
