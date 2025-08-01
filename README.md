@@ -8,7 +8,7 @@ A collection of battle-tested PRP templates for different use cases. Each templa
 
 ## 🚀 Templates Overview
 
-### 🔧 [prp-base](./prp-base/) - Universal PRP Template
+### 🔧 [prp-base-python](./prp-templates/prp-base-python/) - Universal PRP Template
 
 **Drop into any existing project**
 
@@ -17,8 +17,8 @@ Add comprehensive context engineering to any codebase in 30 seconds.
 ```bash
 # Quick start
 git clone https://github.com/coleam00/context-engineering-hub.git
-cp -r context-engineering-hub/prp-templates/prp-base/PRPs/ your-project/
-cp -r context-engineering-hub/prp-templates/prp-base/.claude/ your-project/
+cp -r context-engineering-hub/prp-templates/prp-base-python/PRPs/ your-project/
+cp -r context-engineering-hub/prp-templates/prp-base-python/.claude/ your-project/
 ```
 
 **Perfect for:** Adding structured feature development to existing projects
@@ -102,7 +102,7 @@ Context Engineering represents a paradigm shift from traditional prompt engineer
 
 | Use Case                     | Template                                    | Type            |
 | ---------------------------- | ------------------------------------------- | --------------- |
-| Add PRPs to existing project | [prp-base](./prp-base/)                     | Drop-in         |
+| Add PRPs to existing project | [prp-base-python](./prp-templates/prp-base-python/)                     | Drop-in         |
 | Build MCP server             | [mcp-server](./mcp-server/)                 | Project starter |
 | Build Python AI agents       | [pydantic-ai](./pydantic-ai/)               | Project starter |
 | Create custom PRP template   | [template-generator](./template-generator/) | Meta-template   |

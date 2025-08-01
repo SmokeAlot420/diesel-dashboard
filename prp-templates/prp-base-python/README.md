@@ -11,8 +11,8 @@ This template provides the universal PRP (Product Requirement Prompt) framework 
 ```bash
 # 1. Clone and copy the essentials
 git clone https://github.com/coleam00/context-engineering-hub.git
-cp -r context-engineering-hub/prp-templates/prp-base/PRPs/ your-project/
-cp -r context-engineering-hub/prp-templates/prp-base/.claude/ your-project/
+cp -r context-engineering-hub/prp-templates/prp-base-python/PRPs/ your-project/
+cp -r context-engineering-hub/prp-templates/prp-base-python/.claude/ your-project/
 
 # 2. Start building features immediately
 cd your-project
@@ -31,7 +31,7 @@ cd your-project
 
 **Optional:** Copy `CLAUDE.md` for project-specific AI coding rules.
 
-**Even simpler:** Just copy the `prp-templates/prp-base/` folder to your project root.
+**Even simpler:** Just copy the `prp-templates/prp-base-python/` folder to your project root.
 
 ## 📚 Table of Contents
 
@@ -55,7 +55,7 @@ PRPs go beyond traditional prompts by providing:
 ## Template Structure
 
 ```
-prp-base/
+prp-base-python/
 ├── .claude/
 │   ├── commands/
 │   │   ├── generate-prp.md    # Generates comprehensive PRPs
