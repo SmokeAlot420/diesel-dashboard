@@ -41,7 +41,7 @@ Generate a complete context engineering template package for **[TARGET_TECHNOLOG
 
 **Complete Directory Structure:**
 ```
-use-cases/{technology-name}/
+prp-templates/{technology-name}/
 ├── CLAUDE.md                      # Domain implementation guide
 ├── .claude/commands/
 │   ├── generate-{technology}-prp.md  # Domain PRP generation
@@ -86,27 +86,33 @@ use-cases/{technology-name}/
 
 ```yaml
 # CONTEXT ENGINEERING FOUNDATION - Understand the base framework
-- file: ../../../README.md
+- file: ../../../prp-base-python/README.md
   why: Core context engineering principles and workflow to adapt
 
-- file: ../../../.claude/commands/generate-prp.md
+- file: ../../../prp-base-python/.claude/commands/generate-prp.md
   why: Base PRP generation patterns to specialize for domain
 
-- file: ../../../.claude/commands/execute-prp.md  
+- file: ../../../prp-base-python/.claude/commands/execute-prp.md  
   why: Base PRP execution patterns to adapt for technology
 
-- file: ../../../PRPs/templates/prp_base.md
+- file: ../../../prp-base-python/PRPs/templates/prp_base.md
   why: Base PRP template structure to specialize for domain
 
 # MCP SERVER EXAMPLE - Reference implementation of domain specialization
-- file: ../mcp-server/CLAUDE.md
+- file: ../../../pydantic-ai/CLAUDE.md
   why: Example of domain-specific implementation guide patterns
 
-- file: ../mcp-server/.claude/commands/prp-mcp-create.md
+- file: ../../../pydantic-ai/.claude/commands/generate-pydantic-ai-prp.md
   why: Example of specialized PRP generation command
 
-- file: ../mcp-server/PRPs/templates/prp_mcp_base.md
+- file: ../../../pydantic-ai/.claude/commands/execute-pydantic-ai-prp.md
+  why: Example of specialized PRP execution command
+
+- file: ../../../pydantic-ai/PRPs/templates/prp_pydantic_ai_base.md
   why: Example of domain-specialized base PRP template
+
+- file: ../../../pydantic-ai/copy_template.py
+  why: Example of domain-specialized copy_template.py script
 
 # TARGET TECHNOLOGY RESEARCH - Add domain-specific documentation
 - url: [OFFICIAL_FRAMEWORK_DOCS]
@@ -130,13 +136,10 @@ use-cases/{technology-name}/
 ```bash
 # Base framework structure to extend
 context-engineering-intro/
-├── README.md                    # Core principles to adapt
-├── .claude/commands/            # Base commands to specialize
-├── PRPs/templates/prp_base.md   # Base template to extend
-├── CLAUDE.md                    # Base rules to inherit
-└── use-cases/
-    ├── mcp-server/              # Reference specialization example
-    └── template-generator/      # This meta-template system
+├── prp-templates/
+    ├── pydantic-ai/                    # Reference specialization example
+    ├── prp-base-python/                # Reference base PRP setup for Python
+    └── python-template-generator/      # This meta-template system
 ```
 
 ### Target Technology Analysis Requirements
@@ -263,7 +266,7 @@ Create complete context engineering template package based on web research findi
 ```yaml
 Generation Task 1 - Create Template Directory Structure:
   CREATE complete use case directory structure:
-    - use-cases/{technology-name}/
+    - prp-templates/{technology-name}/
     - .claude/commands/ subdirectory  
     - PRPs/templates/ subdirectory
     - examples/ subdirectory
@@ -327,6 +330,8 @@ Generation Task 7 - Generate Comprehensive README:
 # 5. Provide clear success feedback with next steps
 # 6. Simple usage: python copy_template.py /path/to/target
 ```
+
+Read the example copy_template.py referenced above to see the necessary structure for this script.
 
 **README Structure Requirements:**
 ```markdown
@@ -411,13 +416,13 @@ TEMPLATE_STRUCTURE:
 
 ```bash
 # CRITICAL: Verify complete template package structure
-find use-cases/{technology-name} -type f | sort
-ls -la use-cases/{technology-name}/.claude/commands/
-ls -la use-cases/{technology-name}/PRPs/templates/
+find prp-templates/{technology-name} -type f | sort
+ls -la prp-templates/{technology-name}/.claude/commands/
+ls -la prp-templates/{technology-name}/PRPs/templates/
 
 # Verify copy script exists and is functional
-test -f use-cases/{technology-name}/copy_template.py
-python use-cases/{technology-name}/copy_template.py --help 2>/dev/null || echo "Copy script needs help option"
+test -f prp-templates/{technology-name}/copy_template.py
+python prp-templates/{technology-name}/copy_template.py --help 2>/dev/null || echo "Copy script needs help option"
 
 # Expected: All required files present including copy_template.py
 # If missing: Generate missing files following established patterns
@@ -427,12 +432,12 @@ python use-cases/{technology-name}/copy_template.py --help 2>/dev/null || echo "
 
 ```bash
 # Verify domain-specific content accuracy
-grep -r "TODO\|PLACEHOLDER\|{domain}" use-cases/{technology-name}/
-grep -r "{technology}" use-cases/{technology-name}/ | wc -l
+grep -r "TODO\|PLACEHOLDER\|{domain}" prp-templates/{technology-name}/
+grep -r "{technology}" prp-templates/{technology-name}/ | wc -l
 
 # Check for technology-specific patterns
-grep -r "framework-specific-pattern" use-cases/{technology-name}/
-grep -r "validation" use-cases/{technology-name}/.claude/commands/
+grep -r "framework-specific-pattern" prp-templates/{technology-name}/
+grep -r "validation" prp-templates/{technology-name}/.claude/commands/
 
 # Expected: No placeholder content, technology patterns present
 # If issues: Research and add proper domain-specific content
@@ -442,7 +447,7 @@ grep -r "validation" use-cases/{technology-name}/.claude/commands/
 
 ```bash
 # Test template functionality
-cd use-cases/{technology-name}
+cd prp-templates/{technology-name}
 
 # Test PRP generation command
 /generate-prp INITIAL.md
@@ -475,7 +480,7 @@ cd examples/
 
 ### Template Package Completeness
 
-- [ ] Complete directory structure: `tree use-cases/{technology-name}`
+- [ ] Complete directory structure: `tree prp-templates/{technology-name}`
 - [ ] All required files present: CLAUDE.md, commands, base PRP, examples
 - [ ] Copy script present: `copy_template.py` with proper functionality
 - [ ] README comprehensive: Includes copy script instructions and PRP workflow
