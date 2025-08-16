@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  # Metashrew indexer for Alkanes on Bitcoin mainnet
+  metashrew:
+    image: rockshrew:alkanes
+    container_name: alkanes-metashrew-mainnet
+    volumes:
+      - metashrew-mainnet-data:/data
+    environment:
+      # Connect to Windows host Bitcoin Core
+      DAEMON_RPC_ADDR: http://host.docker.internal:8332
+      AUTH: degenrpc:catalyst123
+      DB_PATH: /data
+      LOG_FILTERS: none,rockshrew=debug
+      HOST: 0.0.0.0
+      PORT: 8080
+      # DIESEL genesis block on mainnet
+      START_BLOCK: 871100
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    command: >
+      /usr/local/bin/rockshrew-mono 
+      --daemon-rpc-url http://degenrpc:catalyst123@host.docker.internal:8332
+      --host 0.0.0.0 
+      --port 8080 
+      --db-path /data/rockshrew 
+      --start-block 871100
+      --indexer /indexer/alkanes.wasm
+
+  # Optional: JSON-RPC gateway for compatibility
+  jsonrpc:
+    image: jsonrpc:alkanes
+    container_name: alkanes-jsonrpc-mainnet
+    depends_on:
+      - metashrew
+    environment:
+      HOST: 0.0.0.0
+      RPCUSER: degenrpc
+      RPCPASSWORD: catalyst123
+      DAEMON_RPC_ADDR: host.docker.internal:8332
+      METASHREW_URI: http://metashrew:8080
+      PORT: 18888
+    ports:
+      - "18888:18888"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+volumes:
+  metashrew-mainnet-data:
+    driver: local
+
+networks:
+  default:
+    name: alkanes_mainnet_network

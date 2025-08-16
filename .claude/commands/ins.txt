@@ -1,0 +1,5 @@
+
+YOUR GOINGT TO LOOSE CONTEXT. STOP AND SUMMARIZE IN DETAIL YOUR ACTIONS, WHAT FILES YOU CHANGED, WHAT YOU CHANGED IN THEM AND WHAT YOUR NEXT CODE CHANGES YOU NEED TO MAKE AND EXACTLY TELL ME YOUR NEXT STEPS. GIVE ME THE BEST SUMMARY SO I CAN RUN THE COMMAND  /COMPACT  AND YOULL HAVE THE BEST SUMMARY TO PROCEED WITH THE NEXT STEPS. 
+
+anything else you would like to add to make sure he does it right ( documentation is super
+  important if not the most) so give him as much details as you can and or references to look into

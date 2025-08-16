@@ -1,0 +1,114 @@
+services:
+  # Bitcoin Core in regtest mode - instant, no sync needed
+  bitcoind:
+    image: ruimarinho/bitcoin-core:latest
+    container_name: alkanes-bitcoind
+    volumes:
+      - bitcoin-regtest-data:/home/bitcoin/.bitcoin
+    command:
+      -regtest=1
+      -txindex
+      -printtoconsole
+      -rpcallowip=0.0.0.0/0
+      -rpcbind=0.0.0.0
+      -rpcuser=bitcoinrpc
+      -rpcpassword=bitcoinrpc
+      -fallbackfee=0.00001
+      -server=1
+      -rest=1
+    ports:
+      - "18444:18443"  # RPC port (different from your mainnet 18443)
+      - "18445:18444"  # P2P port
+    restart: unless-stopped
+
+  metashrew:
+    image: rockshrew:alkanes
+    container_name: alkanes-metashrew
+    depends_on:
+      - bitcoind
+    volumes:
+      - metashrew-data:/data
+    environment:
+      DAEMON_RPC_ADDR: http://bitcoind:18443
+      AUTH: bitcoinrpc:bitcoinrpc
+      DB_PATH: /data
+      LOG_FILTERS: none,rockshrew=debug
+      HOST: 0.0.0.0
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  memshrew:
+    image: memshrew:alkanes
+    container_name: alkanes-memshrew
+    depends_on:
+      - bitcoind
+    environment:
+      DAEMON_RPC_ADDR: http://bitcoind:18443
+      P2P_ADDR: bitcoind:18444
+      AUTH: bitcoinrpc:bitcoinrpc
+      LOG_FILTERS: none,memshrew=debug
+      HOST: 0.0.0.0
+      PORT: 8081
+    restart: unless-stopped
+
+  jsonrpc:
+    image: jsonrpc:alkanes
+    container_name: alkanes-jsonrpc
+    depends_on:
+      - bitcoind
+      - metashrew
+    environment:
+      HOST: 0.0.0.0
+      RPCUSER: bitcoinrpc
+      RPCPASSWORD: bitcoinrpc
+      DAEMON_RPC_ADDR: bitcoind:18443
+      METASHREW_URI: http://metashrew:8080
+      PORT: 18888
+    ports:
+      - "18888:18888"
+    restart: unless-stopped
+
+  # Optional: Ord server for inscriptions/ordinals
+  ord:
+    image: ord:alkanes
+    container_name: alkanes-ord
+    depends_on:
+      - bitcoind
+    environment:
+      CHAIN: regtest
+      RPCUSER: bitcoinrpc
+      RPCPASSWORD: bitcoinrpc
+      PORT: 8090
+      DAEMON_RPC_ADDR: bitcoind:18443
+    ports:
+      - "8090:8090"
+    restart: unless-stopped
+
+  # Optional: Esplora block explorer
+  esplora:
+    image: esplora:alkanes
+    container_name: alkanes-esplora
+    depends_on:
+      - bitcoind
+    volumes:
+      - bitcoin-regtest-data:/data/bitcoin
+    environment:
+      ELECTRS_AUTH: bitcoinrpc:bitcoinrpc
+      ELECTRS_NETWORK: regtest
+      ELECTRS_DAEMON_RPC_ADDR: bitcoind:18443
+      ELECTRS_HTTP_ADDR: 0.0.0.0:50010
+      ELECTRS_DB_DIR: /data/electrs
+      ELECTRS_DAEMON_DIR: /data/bitcoin
+    ports:
+      - "50010:50010"
+    restart: unless-stopped
+
+volumes:
+  bitcoin-regtest-data:
+  metashrew-data:
+
+networks:
+  default:
+    name: alkanes_network

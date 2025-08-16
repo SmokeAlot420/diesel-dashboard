@@ -4,3 +4,38 @@ __pycache__
 .ruff_cache
 .pytest_cache
 use-cases
+
+# Dependencies
+node_modules/
+*/node_modules/
+api/node_modules/
+dashboard/node_modules/
+
+# Environment files
+.env
+.env.local
+.env.production
+*.env
+
+# Build outputs
+dist/
+build/
+*/dist/
+*/build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+nul
+
+# Docker volumes
+bitcoin-data/
+metashrew-data/
+
+# Playwright
+.playwright-mcp/
+test-results/

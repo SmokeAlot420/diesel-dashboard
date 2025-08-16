@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # Bitcoin Core - Full mainnet node
+  bitcoin:
+    image: ruimarinho/bitcoin-core:latest
+    container_name: bitcoin-mainnet
+    ports:
+      - "8332:8332"  # RPC port
+      - "8333:8333"  # P2P port
+    volumes:
+      - bitcoin-data:/home/bitcoin/.bitcoin
+    command:
+      - -printtoconsole
+      - -rpcallowip=0.0.0.0/0
+      - -rpcbind=0.0.0.0
+      - -rpcauth=degenrpc:9f5d404b7c6d36e0e8eb6f7e56b9e8f2$d0e3f4a1b2c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9
+      - -server=1
+      - -txindex=1
+      - -dbcache=2000
+      - -maxmempool=300
+      - -maxconnections=40
+      - -maxuploadtarget=5000
+    restart: unless-stopped
+    networks:
+      - diesel-network
+
+  # Metashrew indexer - Processes DIESEL data
+  metashrew:
+    image: alkanes/metashrew:latest
+    container_name: metashrew-indexer
+    depends_on:
+      - bitcoin
+    environment:
+      - DAEMON_RPC_ADDR=http://bitcoin:8332
+      - AUTH=degenrpc:catalyst123
+      - START_BLOCK=871100
+      - INDEXER_BIND_MAINNET=tcp://0.0.0.0:8180
+      - INDEXER_TARGET_MODE=MAINNET
+    ports:
+      - "8180:8180"
+    volumes:
+      - metashrew-data:/data
+    restart: unless-stopped
+    networks:
+      - diesel-network
+
+  # API Backend
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: diesel-api
+    depends_on:
+      - metashrew
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - METASHREW_URL=http://metashrew:8180
+      - CORS_ORIGIN=https://diesel.yourdomain.com
+    ports:
+      - "3001:3001"
+    restart: unless-stopped
+    networks:
+      - diesel-network
+
+  # Dashboard Frontend (served via nginx)
+  dashboard:
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=https://api.diesel.yourdomain.com
+    container_name: diesel-dashboard
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    restart: unless-stopped
+    networks:
+      - diesel-network
+
+  # Nginx reverse proxy (optional - can use this or external nginx)
+  nginx:
+    image: nginx:alpine
+    container_name: diesel-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.production.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - api
+      - dashboard
+    restart: unless-stopped
+    networks:
+      - diesel-network
+
+volumes:
+  bitcoin-data:
+    driver: local
+  metashrew-data:
+    driver: local
+
+networks:
+  diesel-network:
+    driver: bridge

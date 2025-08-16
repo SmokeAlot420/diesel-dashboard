@@ -1,0 +1,42 @@
+{
+  "version": 2,
+  "name": "diesel-api",
+  "builds": [
+    {
+      "src": "src/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/src/index.ts"
+    },
+    {
+      "src": "/health",
+      "dest": "/src/index.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/src/index.ts"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "ALKANES_RPC_URL": "@alkanes_rpc_url",
+    "ALKANES_RPC_USER": "@alkanes_rpc_user",
+    "ALKANES_RPC_PASSWORD": "@alkanes_rpc_password",
+    "REDIS_URL": "@redis_url",
+    "CORS_ORIGIN": "@cors_origin",
+    "RATE_LIMIT_WINDOW": "@rate_limit_window",
+    "RATE_LIMIT_MAX": "@rate_limit_max",
+    "CACHE_TTL": "@cache_ttl",
+    "API_KEY": "@api_key"
+  },
+  "regions": ["iad1"],
+  "functions": {
+    "src/index.ts": {
+      "maxDuration": 30
+    }
+  }
+}

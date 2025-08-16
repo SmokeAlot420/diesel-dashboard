@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  metashrew:
+    image: rockshrew:alkanes
+    container_name: alkanes-metashrew
+    ports:
+      - "8080:8080"
+    environment:
+      - SKIP_BITCOIN_WAIT=true
+      - BITCOIN_HOST=host.docker.internal
+      - BITCOIN_PORT=18443
+      - BITCOIN_RPC_USER=degenrpc
+      - BITCOIN_RPC_PASSWORD=catalyst123
+      - BITCOIN_NETWORK=regtest
+      - START_BLOCK=0
+    volumes:
+      - metashrew-data:/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    entrypoint: ["/bin/sh", "-c"]
+    command: "echo 'Starting metashrew directly...' && /usr/local/bin/rockshrew-mono --daemon-rpc-url http://degenrpc:catalyst123@host.docker.internal:18443 --host 0.0.0.0 --port 8080 --db-path /data/rockshrew --start-block 0"
+
+  memshrew:
+    image: memshrew:alkanes
+    container_name: alkanes-memshrew
+    environment:
+      - SKIP_BITCOIN_WAIT=true
+      - BITCOIN_HOST=host.docker.internal
+      - BITCOIN_PORT=18443
+      - BITCOIN_RPC_USER=degenrpc
+      - BITCOIN_RPC_PASSWORD=catalyst123
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    entrypoint: ["/bin/sh", "-c"]
+    command: >
+      "echo 'Starting memshrew directly...';
+      /usr/local/bin/memshrew --daemon-rpc-url http://degenrpc:catalyst123@host.docker.internal:18443"
+
+  jsonrpc:
+    image: jsonrpc:alkanes
+    container_name: alkanes-jsonrpc
+    ports:
+      - "18888:18888"
+    environment:
+      - SANDSHREW_BITCOIN_PROXY=http://degenrpc:catalyst123@host.docker.internal:18443
+      - METASHREW_URI=http://metashrew:8080
+      - PORT=18888
+    depends_on:
+      - metashrew
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  metashrew-data:
+
+networks:
+  default:
+    name: alkanes_network

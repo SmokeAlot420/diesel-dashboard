@@ -3,8 +3,50 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:docs.anthropic.com)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "WebSearch",
+      "mcp__archon__get_available_sources",
+      "mcp__archon__perform_rag_query",
+      "mcp__archon__search_code_examples",
+      "mcp__archon__manage_project",
+      "mcp__github__search_code",
+      "mcp__github__get_file_contents",
+      "mcp__c4ai-sse__md",
+      "Bash(mv:*)",
+      "Bash(powershell:*)",
+      "Bash(wsl ps:*)",
+      "Bash(wsl ls:*)",
+      "mcp__archon__manage_task",
+      "Bash(wsl bash:*)",
+      "WebFetch(domain:alkanes.build)",
+      "Bash(wsl pkill:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker restart:*)",
+      "Bash(docker-compose:*)",
+      "Bash(docker run:*)",
+      "Bash(docker exec:*)",
+      "Bash(docker logs:*)",
+      "mcp__github__list_branches",
+      "Bash(rm:*)",
+      "Bash(npm create:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss:*)",
+      "mcp__playwright__playwright_navigate",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_console_messages",
+      "mcp__twitter-mcp__search_tweets",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_press_key",
+      "Bash(dir)",
+      "Bash(npx vite:*)",
+      "Bash(curl:*)",
+      "mcp__playwright__browser_wait_for"
     ],
-    "deny": []
+    "deny": [],
+    "defaultMode": "acceptEdits",
+    "additionalDirectories": [
+      "C:\\"
+    ]
   }
 }

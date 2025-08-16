@@ -1,0 +1,89 @@
+services:
+  # We skip bitcoind since you already have it on Windows
+  
+  metashrew:
+    image: rockshrew:alkanes
+    container_name: alkanes-metashrew
+    volumes:
+      - metashrew-data:/data
+    environment:
+      # Point to Windows Bitcoin Core
+      DAEMON_RPC_ADDR: http://host.docker.internal:18443
+      AUTH: degenrpc:catalyst123
+      DB_PATH: /data
+      LOG_FILTERS: none,rockshrew=debug
+      HOST: 0.0.0.0
+      PORT: 8080
+      # Skip waiting for bitcoind
+      SKIP_BITCOIN_CHECK: "true"
+    ports:
+      - "8080:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c"]
+    command: |
+      echo "Starting metashrew with Windows Bitcoin Core..." &&
+      /usr/local/bin/rockshrew-mono \
+        --daemon-rpc-url http://degenrpc:catalyst123@host.docker.internal:18443 \
+        --host 0.0.0.0 \
+        --port 8080 \
+        --db-path /data \
+        --start-block 0 || \
+      /app/rockshrew-mono \
+        --daemon-rpc-url http://degenrpc:catalyst123@host.docker.internal:18443 \
+        --host 0.0.0.0 \
+        --port 8080 \
+        --db-path /data \
+        --start-block 0
+
+  memshrew:
+    image: memshrew:alkanes
+    container_name: alkanes-memshrew
+    environment:
+      DAEMON_RPC_ADDR: http://host.docker.internal:18443
+      P2P_ADDR: host.docker.internal:18444
+      AUTH: degenrpc:catalyst123
+      LOG_FILTERS: none,memshrew=debug
+      HOST: 0.0.0.0
+      PORT: 8081
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c"]
+    command: |
+      echo "Starting memshrew..." &&
+      /usr/local/bin/memshrew \
+        --daemon-rpc-url http://degenrpc:catalyst123@host.docker.internal:18443 || \
+      /app/memshrew \
+        --daemon-rpc-url http://degenrpc:catalyst123@host.docker.internal:18443
+
+  jsonrpc:
+    image: jsonrpc:alkanes
+    container_name: alkanes-jsonrpc
+    depends_on:
+      - metashrew
+    environment:
+      HOST: 0.0.0.0
+      RPCUSER: degenrpc
+      RPCPASSWORD: catalyst123
+      DAEMON_RPC_ADDR: host.docker.internal:18443
+      METASHREW_URI: http://metashrew:8080
+      PORT: 18888
+      # Skip ord and esplora for now
+      ORD_HOST: localhost
+      ORD_PORT: 8090
+      ESPLORA_HOST: localhost
+      ESPLORA_PORT: 50010
+    ports:
+      - "18888:18888"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+volumes:
+  metashrew-data:
+
+networks:
+  default:
+    name: alkanes_network
